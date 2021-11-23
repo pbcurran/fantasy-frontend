@@ -1,0 +1,29 @@
+.team-name-card {
+  min-height: 55px;
+  line-height: 45px;
+  text-align: center;
+  margin-top: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 10px;
+  border: 1px solid rgb(226, 226, 226, 0.5);
+  user-select: none;
+}
+.team-name-card:hover {
+  background-color: #f8eedb;
+  cursor: pointer;
+}
+.team-name-card-text {
+  color: #963434;
+  font-size: medium;
+  font-weight: 550;
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.dropDown {
+  width: 100%;
+  margin-top: 15px;
+}

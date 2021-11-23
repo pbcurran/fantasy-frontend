@@ -1,0 +1,10 @@
+.navbar {
+  font-family: 'lato', sans-serif;
+}
+.navbar-custom {
+  background-color: rgb(201, 117, 6);
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: rgb(218, 218, 218);
+}
