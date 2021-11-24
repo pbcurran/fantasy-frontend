@@ -51,6 +51,14 @@ function PlayerBoard({ id, players }) {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
+            {renderedPlayers.length == 0 ? (
+              <p>
+                Use this are as a place holder to discount player scores from
+                averages
+              </p>
+            ) : (
+              <p></p>
+            )}
             {renderedPlayers}
             {provided.placeholder}
           </div>

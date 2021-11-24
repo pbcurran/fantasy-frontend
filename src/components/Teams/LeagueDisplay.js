@@ -302,9 +302,7 @@ const LeagueDisplay = () => {
           <Col md={4}>
             <PlayerBoard players={boardOnePlayers} id={'3'}></PlayerBoard>
             <PlayerBoard players={boardTwoPlayers} id={'4'}></PlayerBoard>
-            <div className="d-none d-md-block">
-              <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
-            </div>
+            <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
           </Col>
           <Col md={4}>
             <TeamTitle
@@ -322,9 +320,6 @@ const LeagueDisplay = () => {
               ></TeamPlayers>
             )}
           </Col>
-          <div className="d-block d-sm-none">
-            <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
-          </div>
         </DragDropContext>
       </Row>
     </div>

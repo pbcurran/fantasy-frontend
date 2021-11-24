@@ -79,7 +79,7 @@ function PlayerBoard({ id, players }) {
           Avg: {selectedAverage.toFixed(2)} <br />
         </p>
       ) : (
-        <p>Avg: n/a</p>
+        <p>Drop Players above to compare averages</p>
       )}
     </div>
   );
