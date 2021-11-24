@@ -35,6 +35,17 @@ function PlayerBoard({ id, players }) {
                   <div>{player.playerName}</div>
                 </Col>
                 <Col>{player.currentAverage}</Col>
+                <Col>
+                  <div
+                    style={
+                      player.position === 'C' || player.position === 'PF'
+                        ? { color: 'red', fontSize: '13px' }
+                        : { color: 'black', fontSize: '13px' }
+                    }
+                  >
+                    {player.position}
+                  </div>
+                </Col>
               </Row>
             </div>
           )}

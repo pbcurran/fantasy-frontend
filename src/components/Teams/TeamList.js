@@ -4,13 +4,7 @@ import { Col, Row, Form } from 'react-bootstrap';
 import './TeamList.module.css';
 import styles from './TeamList.module.css';
 
-const TeamList = ({
-  leagueTeams,
-  handleSelectedTeam,
-  droppableId,
-  prompt,
-  title,
-}) => {
+const TeamList = ({ leagueTeams, handleSelectedTeam, title }) => {
   const renderedTeams = leagueTeams.map((team, index) => {
     return <option key={index}>{team.teamName}</option>;
   });
@@ -23,16 +17,20 @@ const TeamList = ({
 
   return (
     <div>
-      <Form.Select
-        className={styles.dropDown}
-        aria-label="Default select example"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      >
-        <option>{title}</option>
-        {renderedTeams}
-      </Form.Select>
+      {leagueTeams.length > 0 ? (
+        <Form.Select
+          className={styles.dropDown}
+          aria-label="Default select example"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+        >
+          <option>{title}</option>
+          {renderedTeams}
+        </Form.Select>
+      ) : (
+        <h5 style={{ color: 'black', marginTop: '5px' }}>loading teams...</h5>
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import classes from './TeamPlayers.module.css';
 
-const TeamPlayers = ({ teamData, selectedTeam, id }) => {
+const TeamPlayers = ({ selectedTeam, id }) => {
   const [team, setTeam] = useState(selectedTeam);
   useEffect(() => {
     setTeam(selectedTeam);
@@ -15,7 +15,6 @@ const TeamPlayers = ({ teamData, selectedTeam, id }) => {
   // the higher the score the different the color
   let renderedPlayers;
   if (selectedTeam) {
-    console.log('teamRendering: ', team);
     renderedPlayers = team.players.map((player, index) => {
       return (
         <Draggable
@@ -35,6 +34,17 @@ const TeamPlayers = ({ teamData, selectedTeam, id }) => {
                   <div>{player.playerName}</div>
                 </Col>
                 <Col>{player.currentAverage}</Col>
+                <Col>
+                  <div
+                    style={
+                      player.position === 'C' || player.position === 'PF'
+                        ? { color: 'red', fontSize: '13px' }
+                        : { color: 'black', fontSize: '13px' }
+                    }
+                  >
+                    {player.position}
+                  </div>
+                </Col>
               </Row>
             </div>
           )}

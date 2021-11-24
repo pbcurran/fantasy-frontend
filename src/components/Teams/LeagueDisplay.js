@@ -46,6 +46,34 @@ const LeagueDisplay = () => {
     };
     getTeams();
   }, []);
+  const reorderTeamList = (team, setTeam, e) => {
+    const teamTemp = { ...team };
+    const [reorderedPlayers] = teamTemp.players.splice(e.source.index, 1);
+    teamTemp.players.splice(e.destination.index, 0, reorderedPlayers);
+
+    setTeam(teamTemp);
+  };
+  // const reorderBoardList = (boardList, setBoardList, e) => {
+  //   const boardTemp = [...boardList];
+  //   console.log('board temp: ', boardTemp);
+  //   const [reorderedPlayers] = boardTemp.splice(e.source.index, 1);
+  //   boardTemp.splice(e.destination.index, 0, reorderedPlayers);
+
+  //   setBoardList(boardTemp);
+  // };
+
+  const reOrderSelectedList = (e) => {
+    console.log(e);
+    if (e.destination.droppableId === 'players1') {
+      reorderTeamList(selectedHomeTeam, setSelectedHomeTeam, e);
+    } else if (e.destination.droppableId === 'players2') {
+      reorderTeamList(selectedAwayTeam, setSelectedAwayTeam, e);
+    } else if (e.destination.droppableId === 'board3') {
+      //reorderBoardList(boardOnePlayers, setBoardOnePlayers, e);
+    } else if (e.destination.droppableId === 'board4') {
+      //reorderBoardList(boardTwoPlayers, setBoardTwoPlayers, e);
+    }
+  };
 
   const handleDrop = (e) => {
     if (!e.destination) return;
@@ -56,6 +84,13 @@ const LeagueDisplay = () => {
     const playerInfo = leaguePlayers.find(
       (player) => player.playerId === Math.floor(e.draggableId / 10)
     );
+
+    if (e.destination.droppableId === e.source.droppableId) {
+      console.log('picked up and dropped on the same area');
+      reOrderSelectedList(e);
+
+      return;
+    }
 
     // if the user drop a player into the middle boards
     if (e.destination.droppableId === 'board3') {
@@ -153,8 +188,8 @@ const LeagueDisplay = () => {
     const currentBoardPlayers = [...sourceBoardPlayers];
     currentBoardPlayers.splice(e.source.index, 1);
     setSourcePlayers(currentBoardPlayers);
-    setNewHomeAverage(getTeamAverage(selectedHomeTeam));
-    setNewAwayAverage(getTeamAverage(selectedAwayTeam));
+    if (selectedHomeTeam) setNewHomeAverage(getTeamAverage(selectedHomeTeam));
+    if (selectedAwayTeam) setNewAwayAverage(getTeamAverage(selectedAwayTeam));
   };
 
   // creates the new average for the players that have moved around on the list
@@ -214,8 +249,8 @@ const LeagueDisplay = () => {
         (player) => player.playerId !== playerInfo.playerId
       );
       setSelectedHomeTeam(homeTeamPlayersTemp);
-      setNewHomeAverage(getTeamAverage(selectedHomeTeam));
-      setNewAwayAverage(getTeamAverage(selectedAwayTeam));
+      if (selectedHomeTeam) setNewHomeAverage(getTeamAverage(selectedHomeTeam));
+      if (selectedAwayTeam) setNewAwayAverage(getTeamAverage(selectedAwayTeam));
     } else if (e.source.droppableId === 'players2') {
       // removes the player from the away team
       const awayTeamPlayersTemp = selectedAwayTeam;
@@ -223,8 +258,8 @@ const LeagueDisplay = () => {
         (player) => player.playerId !== playerInfo.playerId
       );
       setSelectedAwayTeam(awayTeamPlayersTemp);
-      setNewHomeAverage(getTeamAverage(selectedHomeTeam));
-      setNewAwayAverage(getTeamAverage(selectedAwayTeam));
+      if (selectedHomeTeam) setNewHomeAverage(getTeamAverage(selectedHomeTeam));
+      if (selectedAwayTeam) setNewAwayAverage(getTeamAverage(selectedAwayTeam));
     }
   }
 
@@ -267,7 +302,9 @@ const LeagueDisplay = () => {
           <Col md={4}>
             <PlayerBoard players={boardOnePlayers} id={'3'}></PlayerBoard>
             <PlayerBoard players={boardTwoPlayers} id={'4'}></PlayerBoard>
-            <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
+            <div className="d-none d-md-block">
+              <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
+            </div>
           </Col>
           <Col md={4}>
             <TeamTitle
@@ -285,6 +322,9 @@ const LeagueDisplay = () => {
               ></TeamPlayers>
             )}
           </Col>
+          <div className="d-block d-sm-none">
+            <PlayerBin players={playerBinPlayers} id={'5'}></PlayerBin>
+          </div>
         </DragDropContext>
       </Row>
     </div>
